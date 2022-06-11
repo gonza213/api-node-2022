@@ -3,19 +3,22 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
 
-const getUser = (req = request, res = response) => {
-  const { q, page, limit } = req.query;
+const getUser = async (req = request, res = response) => {
+  const { limite = 5, desde = 0 } = req.query;
+  const query = { estado: true };
+
+  const [total, users] = await Promise.all([
+    User.countDocuments(query), //Cantidad de usuarios
+    User.find(query).skip(Number(desde)).limit(Number(limite)), //Traer todos los usuarios
+  ]);
 
   res.json({
-    msg: "Get API - Controller",
-    q,
-    page,
-    limit
+     total,
+     users
   });
 };
 
 const postUser = async (req, res = response) => {
-
   const { nombre, email, password, rol } = req.body;
   const user = new User({ nombre, email, password, rol });
 
@@ -27,22 +30,42 @@ const postUser = async (req, res = response) => {
   await user.save();
 
   res.json({
+    msg: "ok",
     user,
   });
 };
 
-const putUser = (req, res = response) => {
+const putUser = async (req, res = response) => {
   const { id } = req.params;
+  const { _id, password, google, email, ...resto } = req.body;
+
+  //TODO validar contraseña
+  if (password) {
+    const salt = bcrypt.genSaltSync();
+    resto.password = bcrypt.hashSync(password, salt);
+  }
+
+  const user = await User.findByIdAndUpdate(id, resto);
 
   res.json({
-    msg: "Put API - Controller",
-    id,
+    msg: "ok",
+    user,
   });
 };
 
-const deleteUser = (req, res = response) => {
+const deleteUser = async (req, res = response) => {
+
+  const {id} = req.params;
+
+  //Borramos fisicamente el usuario
+  // const user = await User.findByIdAndDelete(id)
+
+  //Inhabilitamos el usuario
+  const user = await User.findByIdAndUpdate(id, {estado: false})
+
   res.json({
-    msg: "Delete API - Controller",
+    msg: "ok",
+    user
   });
 };
 
