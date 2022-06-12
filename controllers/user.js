@@ -13,8 +13,8 @@ const getUser = async (req = request, res = response) => {
   ]);
 
   res.json({
-     total,
-     users
+    total,
+    users,
   });
 };
 
@@ -54,14 +54,13 @@ const putUser = async (req, res = response) => {
 };
 
 const deleteUser = async (req, res = response) => {
-
-  const {id} = req.params;
+  const { id } = req.params;
 
   //Borramos fisicamente el usuario
   // const user = await User.findByIdAndDelete(id)
 
   //Inhabilitamos el usuario
-  const user = await User.findByIdAndUpdate(id, {estado: false})
+  const user = await User.findByIdAndUpdate(id, { estado: false });
 
   res.json({
     msg: "ok",
