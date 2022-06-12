@@ -45,7 +45,7 @@ const putUser = async (req, res = response) => {
     resto.password = bcrypt.hashSync(password, salt);
   }
 
-  const user = await User.findByIdAndUpdate(id, resto);
+  const user = await User.findByIdAndUpdate(id, resto, {new: true});
 
   res.json({
     msg: "ok",
@@ -60,7 +60,7 @@ const deleteUser = async (req, res = response) => {
   // const user = await User.findByIdAndDelete(id)
 
   //Inhabilitamos el usuario
-  const user = await User.findByIdAndUpdate(id, { estado: false });
+  const user = await User.findByIdAndUpdate(id, { estado: false }, {new: true});
 
   res.json({
     msg: "ok",
