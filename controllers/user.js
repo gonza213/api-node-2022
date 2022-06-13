@@ -29,7 +29,7 @@ const postUser = async (req, res = response) => {
   //Guardar usuario
   await user.save();
 
-  res.json({
+  res.status(201).json({
     msg: "ok",
     user,
   });
