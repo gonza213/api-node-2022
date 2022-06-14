@@ -11,8 +11,8 @@ const {
 const {
   esRolValido,
   emailExiste,
-  existeUsuarioId,
-} = require("../helpers/db-validators");
+  existeUsuarioId
+} = require("../helpers");
 
 const {
   getUser,

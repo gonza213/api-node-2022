@@ -3,7 +3,7 @@ const { ObjectId } = require("mongoose").Types;
 
 const { User, Categoria, Producto } = require("../models");
 
-const coleccionesPermitidas = ["categorias", "productos", "roles", "users"];
+const coleccionesPermitidas = ["categorias", "productos", "roles", "usuarios"];
 
 const buscarUsers = async (termino = "", res = response) => {
   const esMongoId = ObjectId.isValid(termino);
@@ -112,7 +112,7 @@ const buscar = (req, res = response) => {
         buscarProductos(termino, res);
       break;
 
-    case "users":
+    case "usuarios":
       buscarUsers(termino, res);
       break;
 

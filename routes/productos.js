@@ -3,7 +3,7 @@ const { check } = require("express-validator");
 
 const { validarCampos, validarJWT, esAdminRole } = require("../middlewares");
 
-const { existeProducto, existeCategoria } = require("../helpers/db-validators");
+const { existeProducto, existeCategoria } = require("../helpers");
 
 const {
   obtenerProductos,
