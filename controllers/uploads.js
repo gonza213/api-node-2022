@@ -109,7 +109,7 @@ const mostrarImagen = async (req, res = response) => {
       modelo.img
     );
     if (fs.existsSync(pathImagen)) {
-      res.sendFile(pathImagen);
+     return res.sendFile(pathImagen);
     }
   }
 
