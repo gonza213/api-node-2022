@@ -9,6 +9,7 @@ const {
   cargarArchivo,
   actualizarArchivo,
   mostrarImagen,
+  actualizarArchivoCloudinary,
 } = require("../controllers/uploads");
 
 const router = Router();
@@ -25,7 +26,8 @@ router.put(
     ),
     validarCampos,
   ],
-  actualizarArchivo
+  // actualizarArchivo
+  actualizarArchivoCloudinary
 );
 
 router.get(
